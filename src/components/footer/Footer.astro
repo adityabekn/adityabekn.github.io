@@ -17,11 +17,16 @@ const wordCountStr = (wordCount / 1000).toFixed(1) + 'k'
 <footer class="relative z-1 py-8 px-4 md:px-8 border-t border-primary text-secondary text-sm">
   <div class="text-center space-y-2">
     <div>
+      <RunningDays client:only="react" />
+      <span class="select-none opacity-50">|</span>
+      <span>Total {wordCountStr} words</span>
+    </div>
+    <!-- <div>
       Powered by
       <Link href="https://astro.build/">Astro</Link>
       & Theme by
       <Link href="https://github.com/lxchapu/astro-gyoza">Gyoza</Link>
-    </div>
+    </div> -->
     <div class="space-x-1">
       <span>&copy;{copyDate} <Link href="/">{author.name}</Link>.</span>
       <Link href="/rss.xml">
@@ -32,11 +37,6 @@ const wordCountStr = (wordCount / 1000).toFixed(1) + 'k'
         <i class="iconfont icon-map"></i>
         <span>Sitemap</span>
       </Link>
-    </div>
-    <div>
-      <RunningDays client:only="react" />
-      <span class="select-none opacity-50">|</span>
-      <span>Total {wordCountStr} words.</span>
     </div>
   </div>
   <div class="mt-4 flex justify-center">

@@ -15,8 +15,8 @@
   },
   "hero": {
     "name": "Aditya Bekti",
-    "bio": "Software engineer with experience in designing and developing applications.",
-    "description": "Proficient in various programming languages such as PHP, Javascript, & Python, and skilled in troubleshooting and problem solving. Proficient in cloud infrastructure, containerization, & CI/CD pipeline. Ready to contribute in innovative projects and open to new technologies.",
+    "bio": "Software Engineer & DevOps Enthusiast",
+    "description": "Experience in designing and developing applications, skilled in troubleshooting and problem solving. Proficient in cloud infrastructure, containerization, & CI/CD pipeline. Ready to contribute in innovative projects and open to new technologies.",
     "socials": [
       {
         "name": "Github",
@@ -103,7 +103,7 @@
     "indexName": ""
   },
   "waline": {
-    "serverURL": "https://waline.lxchapu.com"
+    "serverURL": ""
   },
   "sponsor": {
     "wechat": "https://object.lxchapu.com/bed%2F2024%2F0507_6e3e8f73df2d4e6d.webp"

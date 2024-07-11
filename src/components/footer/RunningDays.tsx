@@ -14,5 +14,5 @@ export function RunningDays() {
     return <span>Oops! website has not been published yet</span>
   }
 
-  return <span>It's been running for {days} day.</span>
+  return <span>It's been running for {days} day</span>
 }
