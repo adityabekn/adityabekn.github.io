@@ -6,40 +6,48 @@ interface Props {
   posts: CollectionEntry<'posts'>[]
 }
 
+type YearlyPostGroup = {
+  year: number
+  posts: CollectionEntry<'posts'>[]
+}
+
+type PostGroup = {
+  year: number
+  post: CollectionEntry<'posts'>
+}
+
 const { posts } = Astro.props
 
-const groupedPosts = posts.reduce<
-  {
-    year: number
-    posts: CollectionEntry<'posts'>[]
-  }[]
->((acc, cur) => {
-  const year = cur.data.date.getFullYear()
-  const lastYearGroup = acc[acc.length - 1]
-  if (lastYearGroup && lastYearGroup.year === year) {
-    lastYearGroup.posts.push(cur)
-  } else {
-    acc.push({
-      year,
-      posts: [cur],
-    })
-  }
-  return acc
-}, [])
+function groupPostsByYearlyGroups(posts: CollectionEntry<'posts'>[]): YearlyPostGroup[] {
+  return posts.reduce<YearlyPostGroup[]>((groupedPosts, post) => {
+    const year = post.data.date.getFullYear()
+    const last_group = groupedPosts[groupedPosts.length - 1]
+
+    if (last_group && last_group.year === year) {
+      last_group.posts.push(post)
+    } else {
+      groupedPosts.push({ year, posts: [post] })
+    }
+
+    return groupedPosts
+  }, [])
+}
+
+const grouped_posts = groupPostsByYearlyGroups(posts)
 ---
 
 <section>
   {
-    groupedPosts.map((year) => (
+    grouped_posts.map((group_year) => (
       <div class="relative py-10">
         <h3
           class="absolute -top-3 -left-8 text-[7rem] text-transparent leading-none font-bold pointer-events-none select-none font-['Atkinson']"
           style="-webkit-text-stroke: 2px rgb(var(--color-text-primary) / 0.1);"
         >
-          {year.year}
+          {group_year.year}
         </h3>
         <ul class="space-y-4">
-          {year.posts.map((post) => (
+          {group_year.posts.map((post) => (
             <li class="flex items-baseline space-x-2">
               <span class="shrink-0 text-gray-600 dark:text-gray-300 text-sm">
                 {getShortDate(post.data.date)}

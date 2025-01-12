@@ -6,7 +6,7 @@ export function RunningDays() {
   const [days, setDays] = useState(0)
 
   useLayoutEffect(() => {
-    const diffDays = getDiffInDays(new Date(footer.startTime))
+    const diffDays = getDiffInDays(new Date(footer.start_time))
     setDays(diffDays)
   }, [])
 

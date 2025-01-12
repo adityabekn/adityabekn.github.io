@@ -1,6 +1,15 @@
 import { z, defineCollection } from 'astro:content'
 
-const postsCollection = defineCollection({
+const MAIN_PAGE_COLLECTION = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    comments: z.boolean().default(true),
+  }),
+})
+
+const POSTS_COLLECTION = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
@@ -16,7 +25,7 @@ const postsCollection = defineCollection({
   }),
 })
 
-const projectsCollection = defineCollection({
+const PROJECTS_COLLECTION = defineCollection({
   type: 'data',
   schema: z.object({
     title: z.string(),
@@ -26,28 +35,8 @@ const projectsCollection = defineCollection({
   }),
 })
 
-const specCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    comments: z.boolean().default(true),
-  }),
-})
-
-const friendsCollection = defineCollection({
-  type: 'data',
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    avatar: z.string(),
-    link: z.string().url(),
-  }),
-})
-
 export const collections = {
-  posts: postsCollection,
-  projects: projectsCollection,
-  spec: specCollection,
-  friends: friendsCollection,
+  'main-page': MAIN_PAGE_COLLECTION,
+  posts: POSTS_COLLECTION,
+  projects: PROJECTS_COLLECTION,
 }

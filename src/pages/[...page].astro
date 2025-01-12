@@ -11,13 +11,29 @@ import CategoryList from '@/components/CategoryList.astro'
 import type { CollectionEntry } from 'astro:content'
 import Hero from '@/components/hero/Hero.astro'
 
+/**
+ * An asynchronous function to generate static paths for a paginated blog or content list.
+ *
+ * This function calculates the total number of pages required based on the number
+ * of sorted posts and the configured posts per page. It slices the sorted posts into
+ * individual chunks corresponding to each page and constructs an array of paths with
+ * the necessary parameters and props for each page.
+ *
+ * The `paths` object contains:
+ * - `params`: Parameters for each page. The first page omits the `page` parameter, while subsequent pages include a
+ *   parameter in the form of 'page/{number}'.
+ * - `props`: Additional properties associated with the page, such as `currentPage`, `totalPage`, and the paginated `data`.
+ *
+ * @type {() => Promise<Array<{params: Record<string, string | undefined>, props: {currentPage: number, totalPage: number, data: Array<any>}}>>}
+ * @returns {Promise<Array<Object>>} An array of `params` and `props` objects for each static path.
+ */
 export const getStaticPaths = (async () => {
   const sortedPosts = await getSortedPosts()
-  const { perPage } = appConfig.posts
-  const totalPage = Math.ceil(sortedPosts.length / perPage)
+  const { per_page } = appConfig.posts
+  const totalPage = Math.ceil(sortedPosts.length / per_page)
 
   const paths = Array.from({ length: totalPage }).map((_, i) => {
-    const data = sortedPosts.slice(i * perPage, (i + 1) * perPage)
+    const data = sortedPosts.slice(i * per_page, (i + 1) * per_page)
     const props = { currentPage: i + 1, totalPage, data }
     const params = {
       page: i === 0 ? undefined : `page/${i + 1}`,
@@ -28,6 +44,20 @@ export const getStaticPaths = (async () => {
   return paths
 }) satisfies GetStaticPaths
 
+/**
+ * Represents the properties for a pagination component or functionality.
+ *
+ * @interface Props
+ *
+ * @property {number} currentPage
+ * The current active page in the pagination.
+ *
+ * @property {number} totalPage
+ * The total number of pages available in the pagination.
+ *
+ * @property {CollectionEntry<'posts'>[]} data
+ * An array of post entries representing the paginated data.
+ */
 interface Props {
   currentPage: number
   totalPage: number
@@ -36,10 +66,43 @@ interface Props {
 
 const { currentPage, totalPage, data } = Astro.props
 
+/**
+ * Represents a collection of trending or popular tags retrieved asynchronously.
+ *
+ * @type {Promise<Array<string>>}
+ * @description The `hotTags` variable stores a promise that resolves to an array of strings,
+ *              where each string represents a trending or popular tag.
+ *              These tags are fetched from an external data source using the `getHotTags` function.
+ */
 const hotTags = await getHotTags()
+/**
+ * A variable that holds the collection of tags retrieved asynchronously.
+ *
+ * This variable is populated by calling the async function getAllTags(), which fetches
+ * and returns a list of all available tags. The exact structure and content of the
+ * tags depend on the implementation of getAllTags().
+ *
+ * The value is expected to be resolved before using the variable to prevent
+ * potential undefined or incomplete data access.
+ *
+ * @type {Promise<any>} A promise that resolves to the complete set of retrieved tags.
+ */
 const allTags = await getAllTags()
+/**
+ * A variable that stores the result of an asynchronous operation to fetch all available categories.
+ * It retrieves category data from an external source or API using the getAllCategories function.
+ * The exact data structure and contents of the variable depend on the implementation of getAllCategories.
+ *
+ * @type {Promise<any>} A promise that resolves to a collection of categories.
+ */
 const allCategories = await getAllCategories()
 
+/**
+ * Constructs the URL for a given page number.
+ *
+ * @param {number} page - The page number for which the URL needs to be generated.
+ * @returns {string} The URL string for the specified page. If the page number is 1, it returns the root URL ('/'). For other page numbers, it returns the URL in the format '/page/{page}'.
+ */
 const getPageUrl = (page: number) => {
   if (page === 1) return '/'
   return `/page/${page}`

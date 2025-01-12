@@ -5,7 +5,7 @@ import { getAllPostsWordCount } from '@/utils/content'
 import { RunningDays } from './RunningDays'
 import Link from './Link.astro'
 
-const sinceYear = new Date(footer.startTime).getFullYear()
+const sinceYear = new Date(footer.start_time).getFullYear()
 const thisYear = new Date().getFullYear()
 const copyDate = sinceYear === thisYear ? thisYear : `${sinceYear} - ${thisYear}`
 

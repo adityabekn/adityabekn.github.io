@@ -14,63 +14,64 @@ import { PostToc } from '@/components/post/PostToc'
 import { Comments } from '@/components/comment'
 
 export const getStaticPaths = (async () => {
-  const specList = await getCollection('spec')
+  const main_page_list = await getCollection('main-page')
 
-  return specList.map((md) => ({
-    params: { spec: md.slug },
+  return main_page_list.map((markdown) => ({
+    params: { page: markdown.slug },
     props: {
-      md,
+      markdown,
     },
   }))
 }) satisfies GetStaticPaths
 
 interface Props {
-  md: CollectionEntry<'spec'>
+  markdown: CollectionEntry<'main-page'>
 }
 
-const { md } = Astro.props
+const { markdown } = Astro.props
 
-const { headings, Content } = await md.render()
+const { headings, Content } = await markdown.render()
 
-const isPageLayout = ['friends', 'projects'].includes(md.slug)
-const isMdContentEmpty = md.body.trim().length === 0
+const is_page_layout = ['projects'].includes(markdown.slug)
+
+const is_markdown_content_empty = !markdown.body || markdown.body.trim().length === 0
 ---
 
 {
-  isPageLayout ? (
-    <PageLayout title={md.data.title} description={md.data.description}>
+  is_page_layout ? (
+    <PageLayout title={markdown.data.title} description={markdown.data.description}>
       <div class="max-w-[800px] mx-auto px-4 py-16 space-y-8">
         <header class="space-y-4">
           <h1 class="text-4xl font-bold">
-            <Highlight>{md.data.title}</Highlight>
+            <Highlight>{markdown.data.title}</Highlight>
           </h1>
-          <p>{md.data.description}</p>
+          <p>{markdown.data.description}</p>
         </header>
-        {md.slug === 'friends' && <FriendList />}
-        {md.slug === 'projects' && <ProjectList />}
-        {!isMdContentEmpty && (
+        {markdown.slug === 'friends' && <FriendList />}
+        {markdown.slug === 'projects' && <ProjectList />}
+        {!is_markdown_content_empty && (
           <MarkdownWrapper>
             <Content />
           </MarkdownWrapper>
         )}
-        {md.data.comments && <Comments />}
+        {markdown.data.comments && <Comments />}
       </div>
     </PageLayout>
   ) : (
     <MarkdownLayout
-      title={md.data.title}
-      description={md.data.description}
-      mdTitle={md.data.title}
-      mdDescription={md.data.description}
-      mdSlug={md.slug}
+      title={markdown.data.title}
+      description={markdown.data.description}
+      markdown_title={markdown.data.title}
+      markdown_description={markdown.data.description}
+      markdown_slug={markdown.slug}
     >
       <div class="max-w-[1100px] mx-auto px-4 md:px-8 py-16 grid lg:grid-cols-[auto_260px] gap-8">
         <div>
           <header class="space-y-4">
             <h1 class="text-4xl font-bold">
-              <Highlight>{md.data.title}</Highlight>
+              <Highlight>{markdown.data.title}</Highlight>
             </h1>
-            <p>{md.data.description}</p>
+            <p>{markdown.data.description}</p>
           </header>
         </div>
         <div class="col-start-1 min-w-0">
@@ -80,14 +81,14 @@ const isMdContentEmpty = md.body.trim().length === 0
         </div>
         <div class="hidden lg:block">
           <aside class="sticky top-20">
-            <SectionBlock title="目录">
+            <SectionBlock title="catalogs">
               <PostToc headings={headings} client:idle />
               <hr class="my-2 border-primary max-w-[100px]" />
               <ReadingProgress client:idle />
             </SectionBlock>
           </aside>
         </div>
-        {md.data.comments && <Comments />}
+        {markdown.data.comments && <Comments />}
       </div>
     </MarkdownLayout>
   )

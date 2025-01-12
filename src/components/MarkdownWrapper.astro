@@ -3,9 +3,9 @@ interface Props {
   class?: string
 }
 
-const { class: className } = Astro.props
+const { class: class_name } = Astro.props
 ---
 
-<article id="markdown-wrapper" class="markdown" class:list={[className]}>
+<article id="markdown-wrapper" class="markdown" class:list={[class_name]}>
   <slot />
 </article>
