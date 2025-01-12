@@ -6,12 +6,12 @@
     "keywords": "adityabekti,blog,Astro,theme,portfolio",
     "lang": "en",
     "favicon": "/favicon.ico",
-    "appleTouchIcon": "/apple-touch-icon.png"
+    "apple_touch_icon": "/apple-touch-icon.png"
   },
   "author": {
     "name": "adityabekti",
-    "twitterId": "@ditbedit",
-    "avatar": "/profile.jpg"
+    "twitter_id": "@ditbedit",
+    "avatar": "/profile.png"
   },
   "hero": {
     "name": "Aditya Bekti",
@@ -37,7 +37,7 @@
         "color": "rgb(212, 70, 56)"
       }
     ],
-    "yiyan": "\"The best time to grow a tree was 20 years ago, the second best time is now.\""
+    "quotes": "\"The best time to grow a tree was 20 years ago, the second best time is now.\""
   },
   "color": {
     "accent": [
@@ -84,18 +84,13 @@
       "name": "About",
       "link": "/about",
       "icon": "icon-ghost"
-    },
-    {
-      "name": "Friends",
-      "link": "/friends",
-      "icon": "icon-hearts"
     }
   ],
   "posts": {
-    "perPage": 10
+    "per_page": 10
   },
   "footer": {
-    "startTime": "2024-06-29T00:00:00Z"
+    "start_time": "2024-06-29T00:00:00Z"
   },
   "docSearch": {
     "appId": "",
@@ -106,7 +101,7 @@
     "serverURL": ""
   },
   "sponsor": {
-    "wechat": "https://object.lxchapu.com/bed%2F2024%2F0507_6e3e8f73df2d4e6d.webp"
+    "wechat": ""
   },
   "analytics": {
     "enable": false,

@@ -1,6 +1,6 @@
 ---
 title: Markdown Examples
-date: 2024-04-01
+date: 2025-04-01
 summary: This is an example of a Markdown article. It shows the syntax and rendering of Markdown.
 category: examples
 tags: [Markdown]

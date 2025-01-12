@@ -15,7 +15,7 @@ const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.ti
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="apple-touch-icon" sizes="180x180" href={site.appleTouchIcon} />
+<link rel="apple-touch-icon" sizes="180x180" href={site.apple_touch_icon} />
 <link rel="icon" href={site.favicon} />
 <!-- L'Internationale, 
   Sera le genre humain. -->
@@ -34,7 +34,7 @@ const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.ti
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-{author.twitterId && <meta property="twitter:site" content={author.twitterId} />}
+{author.twitterId && <meta property="twitter:site" content={author.twitter_id} />}
 {image && <meta property="twitter:image" content={new URL(image, Astro.url)} />}
 
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />

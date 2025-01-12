@@ -3,27 +3,34 @@ import { useAtomValue } from 'jotai'
 import { pageScrollLocationAtom } from '@/store/scrollInfo'
 import { floor } from 'lodash-es'
 
+// Constants
+const ARTICLE_SELECTOR = '#markdown-wrapper';
+
+// Utility function to calculate the reading progress
+function calculateReadingProgress(scroll_y: number, full_height: number): number {
+  if (scroll_y > full_height) {
+    return 100;
+  }
+  return floor((scroll_y / full_height) * 100);
+}
+
 export function ReadingProgress() {
-  const [percent, setPercent] = useState(0)
-  const scrollY = useAtomValue(pageScrollLocationAtom)
+  const [percent, set_percent] = useState(0)
+  const scroll_y = useAtomValue(pageScrollLocationAtom)
 
   useEffect(() => {
-    const $article = document.querySelector('#markdown-wrapper')
-    if (!$article) return
+    const articleElement = document.querySelector(ARTICLE_SELECTOR) as HTMLElement | null;
+    if (!articleElement) return;
 
-    const { offsetHeight, offsetTop } = $article as HTMLElement
-    const fullHeight = offsetHeight + offsetTop - window.innerHeight
+    const { offsetHeight, offsetTop } = articleElement;
+    const full_height = offsetHeight + offsetTop - window.innerHeight;
 
-    if (scrollY > fullHeight) {
-      setPercent(100)
-    } else {
-      setPercent(floor((scrollY / fullHeight) * 100))
-    }
-  }, [scrollY])
+    set_percent(calculateReadingProgress(scrollY, full_height));
+  }, [scroll_y])
 
   return (
     <div>
-      <span className="text-sm">进度 {percent}%</span>
+      <span className="text-sm">Progress {percent}%</span>
     </div>
   )
 }
