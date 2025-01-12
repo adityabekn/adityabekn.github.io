@@ -11,11 +11,6 @@ type YearlyPostGroup = {
   posts: CollectionEntry<'posts'>[]
 }
 
-type PostGroup = {
-  year: number
-  post: CollectionEntry<'posts'>
-}
-
 const { posts } = Astro.props
 
 function groupPostsByYearlyGroups(posts: CollectionEntry<'posts'>[]): YearlyPostGroup[] {

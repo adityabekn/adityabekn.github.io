@@ -1,11 +1,10 @@
 ---
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions'
 import {
   CommonHead,
   WebAnalytics,
   ThemeLoader,
   AccentColorInjector,
-  PrintVersion,
 } from '@/components/head'
 import { site } from '@/config.json'
 import '@/styles/global.css'
@@ -24,10 +23,9 @@ const { title, description, image } = Astro.props
   <head>
     <CommonHead title={title} description={description} image={image} />
     <WebAnalytics />
-    <ViewTransitions />
+    <ClientRouter />
     <ThemeLoader />
     <AccentColorInjector />
-    <PrintVersion />
   </head>
   <body>
     <slot />

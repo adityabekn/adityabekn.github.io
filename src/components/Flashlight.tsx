@@ -1,11 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 
-/**
- * Creates a flashlight effect that follows the cursor movement, showing a highlighted area
- * around the cursor while darkening the rest of the screen. The effect is disabled on mobile devices.
- *
- * @return {JSX.Element | null} A React component rendering the flashlight effect, or null for mobile devices.
- */
+// Creates a flashlight effect that follows the cursor movement, showing a highlighted area
+// around the cursor while darkening the rest of the screen. The effect is disabled on mobile devices.
 export function Flashlight() {
   const [cursorX, setCursorX] = useState(0)
   const [cursorY, setCursorY] = useState(0)
